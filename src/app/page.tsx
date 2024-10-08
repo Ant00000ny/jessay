@@ -1,6 +1,6 @@
 'use client'
 import Image from "next/image";
-import React, {ChangeEvent, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import {Input} from "@nextui-org/react";
 
 export default function Home() {
