@@ -1,6 +1,6 @@
 'use client'
 import Image from "next/image";
-import React, {useRef, useState} from "react";
+import React, {ChangeEvent, useRef, useState} from "react";
 import {Input} from "@nextui-org/react";
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
         <div className={"min-h-screen overflow-hidden"}>
             <div className={"w-screen pt-40 px-4"}>
                 <div className={"flex justify-center items-center gap-4"}>
-                    <Avatar image={"/unknown_mother_goose.jpg"}/>
+                    <Avatar/>
                     <Essay content={essayContent} author={essayAuthor}/>
                 </div>
             </div>
@@ -25,27 +25,39 @@ export default function Home() {
     );
 }
 
-interface AvatarProps {
-    image: string
-}
-
-const Avatar: React.FC<AvatarProps> = ({image}) => {
+const Avatar = () => {
     const handleAvatarClick = () => {
         hiddenInputRef.current?.click()
     }
 
+
     const hiddenInputRef = useRef<HTMLInputElement>(null);
+
+    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target?.files?.item(0)
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setUploadedImage(reader.result as string);
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    const [uploadedImage, setUploadedImage] = useState<string | null>(null);
 
     return (
         <div className={"w-40 h-40 rounded overflow-hidden aspect-square min-w-40"}>
-            <Image src={`${image && image.trim() ? image : "/unknown_mother_goose.jpg"}`}
+            <Image src={uploadedImage || "/unknown_mother_goose.jpg"}
                    alt={`unknown_mother_goose.jpg`}
                    className={"object-cover w-full h-full"}
                    width={160}
                    height={160}
                    onClick={handleAvatarClick}>
             </Image>
-            <Input type={"file"} ref={hiddenInputRef}/>
+            <Input type={"file"}
+                   ref={hiddenInputRef}
+                   onChange={handleFileUpload}/>
         </div>
     )
 }
