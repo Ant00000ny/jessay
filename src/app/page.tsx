@@ -71,11 +71,11 @@ const Essay: React.FC<EssayProps> = ({content, author}) => {
     return (
         <div className={"flex flex-col gap-2 font-extrabold min-w-40 max-w-60"}>
             <p className={"text-wrap text-2xl"}>
-                {content && content.trim() ? content : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit, similique. Lorem ipsum dolor sit amet."}
+                {content && content.trim() ? content : "喔哦哦，哦哦哦哦哦噢噢哦哦喔哦哦，哦哦哦哦哦噢噢哦哦"}
             </p>
             <p className={"text-end flex justify-end gap-2 text-xl"}>
                 <span>—</span>
-                <span>{author && author.trim() ? author : "Lorem ipsum."}</span>
+                <span>{author && author.trim() ? author : "wowaka現実逃避P"}</span>
             </p>
         </div>
     )
