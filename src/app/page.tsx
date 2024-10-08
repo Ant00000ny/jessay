@@ -1,6 +1,6 @@
 'use client'
 import Image from "next/image";
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {Input} from "@nextui-org/react";
 
 export default function Home() {
@@ -30,13 +30,22 @@ interface AvatarProps {
 }
 
 const Avatar: React.FC<AvatarProps> = ({image}) => {
+    const handleAvatarClick = () => {
+        hiddenInputRef.current?.click()
+    }
+
+    const hiddenInputRef = useRef<HTMLInputElement>(null);
+
     return (
         <div className={"w-40 h-40 rounded overflow-hidden aspect-square min-w-40"}>
             <Image src={`${image && image.trim() ? image : "/unknown_mother_goose.jpg"}`}
                    alt={`unknown_mother_goose.jpg`}
                    className={"object-cover w-full h-full"}
                    width={160}
-                   height={160}/>
+                   height={160}
+                   onClick={handleAvatarClick}>
+            </Image>
+            <Input type={"file"} ref={hiddenInputRef}/>
         </div>
     )
 }
